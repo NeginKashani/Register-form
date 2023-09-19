@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap-icons-1.10.5/font/bootstrap-icons.min.css">
+    <title>Register Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: rgb(19, 18, 18);
+            display: flex;
+            justify-content: center;
+
+
+
+        }
+
+
+        .form {
+            width: 50%;
+            height: 600px;
+            padding: 20px;
+            border: 2px solid rgb(27, 26, 26);
+            box-shadow: 5px 5px 10px white,
+                -5px -5px 10px white;
+            background-color: rgb(226, 233, 230);
+            border-radius: 10px;
+            margin-top: 20px;
+
+
+            >input {
+                display: flex;
+                width: 90%;
+                margin: 20px;
+                height: 35px;
+                font-size: 20px;
+                padding: 10px;
+                border-radius: 8px;
+                box-shadow: 5px 5px 10px white,
+                    -5px -5px 10px white;
+
+
+
+
+            }
+
+            >label {
+                display: none;
+                color: red;
+
+            }
+
+        }
+
+        button {
+            background-color: rgb(15, 15, 90);
+            color: azure;
+            width: 100px;
+            padding: 10px;
+            margin-left: 20px;
+            box-shadow: 5px 5px 10px white,
+                -5px -5px 10px rgb(255, 255, 255);
+
+
+        }
+
+        span {
+            position: relative;
+
+
+
+        }
+
+        .bi-eye-fill {
+            margin-left: 500px;
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        h1 {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <form onsubmit="myform(event)" action="reg.php" class="form" name="Register">
+        <h1>Registeration Form</h1>
+        <input type="text" placeholder="Username" name="username">
+        <label for="">Error Occured!</label>
+        <input type="text" placeholder="Email" name="email">
+        <label for="">Error Occured!</label>
+        <input type="text" placeholder="Phonenumber" name="phone">
+        <label for="">Error Occured!</label>
+        <span onclick="showpass()"> <i class="bi bi-eye-fill"></i></span>
+        <input type="text" placeholder="Password" name="pass" class="input">
+        <label for="">Error Occured!</label>
+        <input type="text" placeholder="Confirm Password" name="confirmpass">
+        <label for="">Error Occured!</label>
+        <button>Submit</button>
+
+    </form>
+
+    <script>
+
+        function myform(e) {
+            let flag = 0
+            let labels = document.querySelectorAll('label')
+            labels.forEach((val) => {
+                val.style.display = 'none'
+            })
+            let _email = document.forms['Register']['email'].value
+            let _pass = document.forms['Register']['pass'].value
+            let _username = document.forms['Register']['username'].value
+            let _phone = document.forms['Register']['phone'].value
+            let _confirmpass = document.forms['Register']['confirmpass'].value
+            if (_email == null ||
+                _email == '' ||
+                (_email.search(/<script/)) >= 0 ||
+                (_email.search(/&lt;script/)) >= 0 ||
+                (_email.search(/script/)) >= 0
+            ) {
+                document.forms['Register']['email'].nextElementSibling.style.display = 'flex'
+                flag++
+            } else {
+
+                let temp = _email.match(/@/g)
+                if (
+                    (temp == null) ||
+                    (_email.search(/@/)) <= 2 ||
+                    _email.length < 10 ||
+                    _email.search(/[~!#$%^&*()/]/) >= 0 ||
+                    (_email.search(/\s+/)) >= 0
+                ) {
+                    document.forms['Register']['email'].nextElementSibling.style.display = 'flex'
+                    flag++
+
+                }
+            }
+
+            if (_pass == null ||
+                _pass == '' ||
+                (_pass.search(/<script/)) >= 0 ||
+                (_pass.search(/&lt;script/)) >= 0 ||
+                (_pass.search(/script/)) >= 0
+            ) {
+                document.forms['Register']['pass'].nextElementSibling.style.display = 'flex'
+                flag++
+
+            } else {
+
+                if (_pass.search(/[0-9]/) == -1 ||
+                    _pass.search(/[a-z]/) == -1 ||
+                    _pass.search(/[A-Z]/) == -1 ||
+                    _pass.search(/[~!@#$%^&*()_+]/) == -1
+                ) {
+                    document.forms['Register']['pass'].nextElementSibling.style.display = 'flex'
+                    flag++
+
+                }
+            }
+            if (_username == null ||
+                _username == '' ||
+                (_username.search(/<script/)) >= 0 ||
+                (_username.search(/&lt;script/)) >= 0 ||
+                (_username.search(/script/)) >= 0
+            ) {
+                document.forms['Register']['username'].nextElementSibling.style.display = 'flex'
+                flag++
+
+            } else {
+
+                if (
+                    _username.search(/[a-z]/) == -1 ||
+                    _username.search(/[A-Z]/) == -1
+
+                ) {
+                    document.forms['Register']['username'].nextElementSibling.style.display = 'flex'
+                    flag++
+
+                }
+            }
+            if (_phone == null ||
+                _phone == '' ||
+                (_phone.search(/<script/)) >= 0 ||
+                (_phone.search(/&lt;script/)) >= 0 ||
+                (_phone.search(/script/)) >= 0
+            ) {
+                document.forms['Register']['phone'].nextElementSibling.style.display = 'flex'
+                flag++
+
+            } else {
+
+                if (
+                    _phone.search(/[0-9]/) == -1
+
+                ) {
+                    document.forms['Register']['phone'].nextElementSibling.style.display = 'flex'
+                    flag++
+
+                }
+            }
+            if (_confirmpass == null ||
+                _confirmpass == '' ||
+                (_confirmpass.search(/<script/)) >= 0 ||
+                (_confirmpass.search(/&lt;script/)) >= 0 ||
+                (_confirmpass.search(/script/)) >= 0
+            ) {
+                document.forms['Register']['confirmpass'].nextElementSibling.style.display = 'flex'
+                flag++
+
+            } else {
+
+                if (_confirmpass.search(/[0-9]/) == -1 ||
+                    _confirmpass.search(/[a-z]/) == -1 ||
+                    _confirmpass.search(/[A-Z]/) == -1 ||
+                    _confirmpass.search(/[~!@#$%^&*()_+]/) == -1
+                ) {
+                    document.forms['Register']['confirmpass'].nextElementSibling.style.display = 'flex'
+                    flag++
+
+                }
+            }
+
+
+            if (flag > 0) {
+                e.preventDefault()
+            }
+
+
+
+        }
+        function showpass() {
+            let _showpass = document.getElementsByClassName('input')[0];
+            if (_showpass.type === "password") {
+                _showpass.type = "text";
+            } else {
+                _showpass.type = "password";
+            }
+        }
+
+
+
+    </script>
+</body>
+
+</html>
